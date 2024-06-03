@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import { TodoServices } from "@/services/todo.services";
 
 import { Todo } from "@/types/todo.type";
-import { IconButton, List, Text } from "react-native-paper";
+import { Button, IconButton, List, Text } from "react-native-paper";
 import { Stack } from "expo-router";
 
 export default function Index() {
@@ -29,11 +29,9 @@ export default function Index() {
   };
 
   const getDateToString = (date: Date) => {
-    const dates = new Date(date).toLocaleDateString("es-AR", {
+    const dates = date.toLocaleDateString("es-AR", {
       timeZone: "UTC",
     });
-
-    console.log(dates);
 
     return dates;
   };
@@ -67,11 +65,14 @@ export default function Index() {
                 />
               )}
             >
-              <View>
+              <View style={styles.descriptionContainer}>
                 <Text style={styles.itemDescription}>{item.description}</Text>
                 <Text style={styles.itemCreatedAt}>
                   Creado el {getDateToString(item.createdAt)}
                 </Text>
+                <View style={styles.buttonContainer}>
+                  <Button mode="contained" onPress={()=> router.navigate(`${item.id}/edit`)}>Editar</Button>
+                </View>
               </View>
             </List.Accordion>
           )}
@@ -83,6 +84,16 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: { width: "100%", padding: 10, gap: 8 },
+  descriptionContainer: {
+    padding: 10,
+    width: "100%",
+    gap: 5,
+  },
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
   description: {
     color: "gray",
     fontSize: 12,

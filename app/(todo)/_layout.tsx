@@ -5,6 +5,7 @@ export default function TodoLayout() {
     <Stack>
       <Stack.Screen name="list-todo" options={{title:"Todo List"}}  />
       <Stack.Screen name="create-todo" options={{title:"Add Todo"}}  />
+      <Stack.Screen name="[id]/edit" options={{title:"Edit Todo"}}  />
     </Stack>
   );
 }
