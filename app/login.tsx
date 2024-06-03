@@ -1,4 +1,6 @@
-import { Image, StyleSheet, Platform } from "react-native";
+import { Image, StyleSheet } from "react-native";
+
+import { router } from 'expo-router';
 
 import {
   useForm,
@@ -13,12 +15,19 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { TextInput, Text, Button, HelperText } from "react-native-paper";
 
+import { AuthServices } from "@/services/auth.services";
+import { useState } from "react";
+
 type FormValues = {
   email: string;
   password: string;
 };
 
 export default function Login() {
+
+  const [loginError, setLoginError] = useState('');
+
+
   const {
     control,
     handleSubmit,
@@ -59,8 +68,21 @@ export default function Login() {
     },
   } as const;
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
+  const onSubmit = async (data: FieldValues) => {
+    const { email, password } = data;
+    
+    try {
+      const response = await AuthServices.login(email, password);
+      console.log(
+        `Usuario ${response.email} ha iniciado sesión con el token ${response.token}`
+      );
+      setLoginError('')
+      router.replace('list-todo')
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setLoginError(error.message);
+      }
+    }
   };
 
   const hasErrors = Object.keys(errors).length > 0;
@@ -79,6 +101,10 @@ export default function Login() {
         <ThemedText type="title" style={styles.titleContainer}>
           Iniciar Sesión!
         </ThemedText>
+        {
+          loginError && <Text style={styles.errorMessage}>{loginError}</Text>
+        }
+
         <Controller
           control={control as unknown as Control<FieldValues>}
           rules={emailErrorMessages}
@@ -86,6 +112,7 @@ export default function Login() {
             <TextInput
               label="Correo Electrónico"
               keyboardType="email-address"
+              autoCapitalize="none"
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -103,6 +130,7 @@ export default function Login() {
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               label="Contraseña"
+              autoCapitalize="none"
               secureTextEntry
               onBlur={onBlur}
               onChangeText={onChange}
@@ -135,4 +163,8 @@ const styles = StyleSheet.create({
     right: 0,
     position: "absolute",
   },
+  errorMessage: {
+    color: "red",
+    marginBottom: 10,
+  }
 });
