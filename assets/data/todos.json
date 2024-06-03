@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "First Todo",
+    "description": "This is the first todo",
+    "status": "pending",
+    "author": "Admin",
+    "createdAt": "2024-06-03"
+  },
+  {
+    "id": 2,
+    "title": "Second Todo",
+    "description": "This is the second todo",
+    "status": "standBy",
+    "author": "Admin",
+    "createdAt": "2024-06-03"
+  },
+  {
+    "id": 3,
+    "title": "Third Todo",
+    "description": "This is the third todo",
+    "status": "started",
+    "author": "Admin",
+    "createdAt": "2024-06-03"
+  },
+  {
+    "id": 4,
+    "title": "Fourth Todo",
+    "description": "This is the fourth todo",
+    "status": "pending",
+    "author": "Admin",
+    "createdAt": "2024-06-03"
+  },
+  {
+    "id": 5,
+    "title": "Fifth Todo",
+    "description": "This is the fifth todo",
+    "status": "finished",
+    "author": "Admin",
+    "createdAt": "2024-06-03"
+  },
+  {
+    "id": 6,
+    "title": "Sixth Todo",
+    "description": "This is the sixth todo",
+    "status": "pending",
+    "author": "Admin",
+    "createdAt": "2024-06-03"
+  }
+]
